@@ -5,22 +5,16 @@ import typescript from "rollup-plugin-typescript2";
 import postcss from "rollup-plugin-postcss";
 import copy from "rollup-plugin-copy";
 
-const packageJson = require("./package.json");
-
 export default {
-  input: "src/index.ts",
+  input: ["src/index.ts", "src/TestComponent/index.ts"],
   output: [
     {
-      file: packageJson.main,
+      dir: "build",
       format: "cjs",
-      sourcemap: true
-    },
-    {
-      file: packageJson.module,
-      format: "esm",
       sourcemap: true
     }
   ],
+  preserveModules: true, // Important if we want to code split
   plugins: [
     peerDepsExternal(),
     resolve(),
